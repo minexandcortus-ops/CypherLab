@@ -76,11 +76,11 @@ const CipherKeyRenderer = ({ type, shift, aValue, themeId }) => {
         'Y': '-.--', 'Z': '--..'
       };
       return (
-        <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-[11px] font-mono">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-[11px] font-mono">
           {Object.entries(morseData).map(([l, c]) => (
-            <div key={l} className="flex items-center gap-2 bg-current/5 px-2 py-1.5 rounded border border-current/10 shadow-sm">
-               <span className="font-black w-4 text-center border-r border-current/20 pr-1.5">{l}</span>
-               <span className="opacity-90 flex-1 text-center tracking-[0.2em] whitespace-nowrap">{c}</span>
+            <div key={l} className="flex items-center gap-3 bg-current/5 px-3 py-1.5 rounded border border-current/10 shadow-sm">
+               <span className="font-black w-5 text-center border-r border-current/20 pr-2">{l}</span>
+               <span className="opacity-90 flex-1 text-center tracking-[0.25em] whitespace-nowrap">{c}</span>
             </div>
           ))}
         </div>
