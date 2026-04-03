@@ -95,9 +95,10 @@ const CipherKeyRenderer = ({ type, shift, aValue, themeId }) => {
           <div className="absolute left-2/3 h-full w-0.5 bg-current/30" />
           <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 items-center text-center font-bold text-[10px]">
             {chars.split('').map((c, i) => (
-              <span key={i} className="relative">
-                {c}{hasDots && <span className="absolute -top-1 -right-1 w-1 h-1 bg-current rounded-full" />}
-              </span>
+              <div key={i} className="flex flex-col items-center justify-center">
+                <span className="leading-none">{c}</span>
+                {hasDots && <div className="w-1 h-1 bg-current rounded-full mt-0.5" />}
+              </div>
             ))}
           </div>
         </div>
@@ -109,10 +110,22 @@ const CipherKeyRenderer = ({ type, shift, aValue, themeId }) => {
              <line x1="100" y1="0" x2="0" y2="100" stroke="currentColor" strokeWidth="2" />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">
-            <span className="absolute top-2">{chars[0]}{hasDots && '.'}</span>
-            <span className="absolute right-2">{chars[1]}{hasDots && '.'}</span>
-            <span className="absolute bottom-2">{chars[2]}{hasDots && '.'}</span>
-            <span className="absolute left-2">{chars[3]}{hasDots && '.'}</span>
+            <div className="absolute top-1.5 flex flex-col items-center">
+              <span>{chars[0]}</span>
+              {hasDots && <div className="w-1 h-1 bg-current rounded-full" />}
+            </div>
+            <div className="absolute right-1.5 flex items-center">
+              <span>{chars[1]}</span>
+              {hasDots && <div className="w-1 h-1 bg-current rounded-full ml-0.5" />}
+            </div>
+            <div className="absolute bottom-1.5 flex flex-col-reverse items-center">
+              <span>{chars[2]}</span>
+              {hasDots && <div className="w-1 h-1 bg-current rounded-full" />}
+            </div>
+            <div className="absolute left-1.5 flex items-center">
+              {hasDots && <div className="w-1 h-1 bg-current rounded-full mr-0.5" />}
+              <span>{chars[3]}</span>
+            </div>
           </div>
         </div>
       );
