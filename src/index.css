@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+@theme {
+  --color-enigma-dark: #1a1a2e;
+  --color-enigma-accent: #ffd700;
+  --color-enigma-neon: #00f2ff;
+  --color-enigma-hacker: #00ff41;
+  
+  --font-mystery: "Special Elite", cursive;
+  --font-hacker: "JetBrains Mono", monospace;
+  --font-elegant: "Playfair Display", serif;
+  --font-medieval: "MedievalSharp", cursive;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1a1a2e;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Custom scrollbar for mystery look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffd70033;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd70066;
+}
+
+/* Animations helpers */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.gold-glow {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+#printable-area {
+  width: 100%;
+  padding: 0;
+}
+
+.printable-cards-container {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.print-keys-section {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid-layout-2 { grid-template-columns: 1fr 1fr; }
+  .grid-layout-3 { grid-template-columns: 1fr 1fr; }
+}
+
+.enigma-card {
+  position: relative;
+  width: 100%;
+  min-height: 200px; /* Reduced for better UI */
+  background-color: white;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+@media print {
+  @page {
+    margin: 1cm;
+    size: A4 portrait;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide UI elements */
+  .no-print, 
+  header, 
+  footer, 
+  button, 
+  .glass {
+    display: none !important;
+  }
+
+  /* Show printable area */
+  #root, #root > *, .print-only, #printable-area {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  #printable-area {
+    display: block !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  .printable-cards-container {
+    display: grid !important;
+    height: 297mm !important;
+    width: 210mm !important;
+    gap: 0.5cm !important;
+    margin: 0 auto;
+    page-break-after: auto; /* Changed to auto to allow keys to follow */
+  }
+
+  /* Print-specific Grid Layouts */
+  .grid-layout-1 { grid-template-rows: 1fr; }
+  .grid-layout-2 { grid-template-rows: 1fr 1fr; grid-template-columns: 1fr !important; }
+  .grid-layout-3 { grid-template-rows: 1fr 1fr 1fr; grid-template-columns: 1fr !important; }
+  .grid-layout-4 { grid-template-columns: 1fr 1fr !important; grid-template-rows: 1fr 1fr; }
+
+  .enigma-card {
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 2.5rem !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .enigma-card .bg-opacity-20, 
+  .enigma-card .opacity-10,
+  .enigma-card .opacity-20 {
+    opacity: 1 !important;
+  }
+
+  /* Scale content for print */
+  .grid-layout-3 .content-element,
+  .grid-layout-4 .content-element {
+    font-size: 1.5rem !important;
+  }
+
+  /* Key section styles */
+  .print-keys-section {
+    page-break-before: auto;
+    width: 210mm;
+    margin: 2cm auto 0;
+    padding: 1cm;
+    border-top: 2px dashed #ccc;
+  }
+}
