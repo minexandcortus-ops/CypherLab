@@ -36,29 +36,32 @@ export const BrailleDisplay = ({ text }) => {
  * Semaphore Visual Component
  * Simplified representation using two arms on a clock-face (8 positions)
  */
-export const SemaphoreDisplay = ({ text }) => {
+export const SemaphoreDisplay = ({ text, size = 50 }) => {
   const semaMap = {
     'A': [4, 5], 'B': [3, 5], 'C': [2, 5], 'D': [1, 5], 'E': [5, 8], 'F': [5, 7], 'G': [5, 6],
     'H': [3, 4], 'I': [2, 4], 'J': [1, 8], 'K': [1, 4], 'L': [4, 8], 'M': [4, 7], 'N': [4, 6],
     'O': [2, 3], 'P': [1, 3], 'Q': [3, 8], 'R': [3, 7], 'S': [3, 6], 'T': [1, 2], 'U': [2, 8],
     'V': [1, 6], 'W': [2, 7], 'X': [2, 6], 'Y': [1, 7], 'Z': [7, 8]
   };
+  
+  const center = size / 2;
+  const armLength = (size / 2) * 0.8;
 
   const getArmLine = (pos) => {
     // 1: Top, 2: Top-Right, 3: Right, 4: Bottom-Right, 5: Bottom, 6: Bottom-Left, 7: Left, 8: Top-Left
     const angles = { 1: -90, 2: -45, 3: 0, 4: 45, 5: 90, 6: 135, 7: 180, 8: 225 };
     const angle = (angles[pos] * Math.PI) / 180;
-    const x2 = 25 + 20 * Math.cos(angle);
-    const y2 = 25 + 20 * Math.sin(angle);
-    return <line x1="25" y1="25" x2={x2} y2={y2} stroke="currentColor" strokeWidth="4" strokeLinecap="round" />;
+    const x2 = center + armLength * Math.cos(angle);
+    const y2 = center + armLength * Math.sin(angle);
+    return <line x1={center} y1={center} x2={x2} y2={y2} stroke="currentColor" strokeWidth={size/12} strokeLinecap="round" />;
   };
 
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {text.toUpperCase().split('').map((char, i) => (
-        char === ' ' ? <div key={i} className="w-10" /> : (
-          <svg key={i} width="50" height="50" className="text-current bg-black/5 rounded-full p-1 border border-current/10">
-            <circle cx="25" cy="25" r="2" fill="currentColor" />
+        char === ' ' ? <div key={i} style={{ width: size }} /> : (
+          <svg key={i} width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="text-current bg-black/5 rounded-full p-1 border border-current/10 overflow-visible">
+            <circle cx={center} cy={center} r="1.5" fill="currentColor" />
             {semaMap[char] && semaMap[char].map(pos => <React.Fragment key={pos}>{getArmLine(pos)}</React.Fragment>)}
           </svg>
         )
