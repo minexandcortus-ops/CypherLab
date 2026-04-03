@@ -184,14 +184,13 @@ const CipherKeyRenderer = ({ type, shift, aValue, themeId }) => {
       return (
         <div className="flex flex-col gap-2">
            <p className="text-[9px] opacity-60 italic">Signaux Sémaphore (positions des bras).</p>
-           <div className="flex flex-wrap gap-2 opacity-60 scale-75 origin-top-left -mb-8">
-              {'ABCDE'.split('').map(c => (
+           <div className="grid grid-cols-6 gap-x-2 gap-y-4 opacity-100 scale-90 origin-top-left pb-4">
+              {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(c => (
                 <div key={c} className="flex flex-col items-center">
                    <SemaphoreDisplay text={c} />
-                   <span className="text-xs mt-1 font-black">{c}</span>
+                   <span className="text-[10px] mt-1 font-black opacity-60">{c}</span>
                 </div>
               ))}
-              <span className="text-[10px] self-end ml-4 italic">...etc</span>
            </div>
         </div>
       );
